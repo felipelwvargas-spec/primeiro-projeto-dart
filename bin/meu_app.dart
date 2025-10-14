@@ -7,6 +7,10 @@ void main() {
 
   double numeroDois = 0;
 
+  List<String> operacoes = <String>["+", "-", "*", "/"];
+
+  String? entrada = "";
+
   void multiplicacao() {
     print(numeroUm * numeroDois);
   }
@@ -23,38 +27,53 @@ void main() {
     print(numeroUm / numeroDois);
   }
 
+  void calcular() {
+    switch (operacao) {
+      case "+":
+        soma();
+      case "-":
+        subtracao();
+      case "*":
+        multiplicacao();
+      case "/":
+        divisao();
+        break;
+    }
+  }
+
+  void getOperacao() {
+    print("Digite o operador ${operacoes.toString()}:");
+    entrada = stdin.readLineSync();
+    if (entrada != null) {
+      if (operacoes.contains(entrada)) {
+        operacao = entrada!;
+      }else{
+        print("Operação invalida!");
+        getOperacao();        
+      }
+    }
+  }
+
   print("Digite o primeiro numero:");
-  String? entrada = stdin.readLineSync();
+  entrada = stdin.readLineSync();
 
   if (entrada != null) {
     if (entrada != "") {
-      numeroUm = double.parse(entrada);
+      numeroUm = double.parse(entrada!);
     }
   }
-  print("Digite o operador:");
-  entrada = stdin.readLineSync();
-  if (entrada != null) {
-    operacao = entrada;
-  }
+
+  getOperacao();
+
   print("Digite o segundo numero:");
   entrada = stdin.readLineSync();
   if (entrada != null) {
     if (entrada != "") {
-      numeroDois = double.parse(entrada);
+      numeroDois = double.parse(entrada!);
     }
   }
-
-  switch (operacao) {
-    case "+":
-      soma();
-    case "-":
-      subtracao();
-    case "*":
-      multiplicacao();
-    case "/":
-      divisao();
-      break;
-  }
+  print('O resultado é:');
+  calcular();
 }
 
   
